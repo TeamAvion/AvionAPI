@@ -11,4 +11,8 @@ import org.teamavion.core.systems.tech.wrench.ItemAvionWrench;
 
 @Mod(modid = Ref.MODID, version = Ref.VERSION)
 public class TeamAvionCore {
+    @EventHandler
+    public void preInit(FMLPreInitializationEvent event){
+        org.teamavion.core.MCUtils.automation.SetupHelper.setup(ItemAvionWrench.class);
+    }
 }

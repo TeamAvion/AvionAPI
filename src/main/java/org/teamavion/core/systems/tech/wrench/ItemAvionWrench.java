@@ -15,6 +15,7 @@ import org.teamavion.core.MCUtils.automation.Auto;
  */
 @IAvionWrench
 public class ItemAvionWrench extends Item{
+    public static final @Auto ItemAvionWrench wrench;
     public ItemAvionWrench(){
         super();
         this.setRegistryName("ItemAvionWrench");
