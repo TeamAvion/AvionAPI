@@ -15,20 +15,24 @@ import org.teamavion.core.MCUtils.automation.Auto;
  */
 @IAvionWrench
 public class ItemAvionWrench extends Item{
-    public static final @Auto ItemAvionWrench wrench;
+
+    public static @Auto ItemAvionWrench wrench;
+
     public ItemAvionWrench(){
-        super();
         this.setRegistryName("ItemAvionWrench");
         this.setUnlocalizedName("avionwrench");
     }
+
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
         if (!worldIn.isRemote) {
+            System.out.println("I am rightclicking");
             Block block = worldIn.getBlockState(pos).getBlock();
-            if(block.getClass().isAnnotationPresent(IAvionWrenchable.class)){
+            System.out.println("I am rightclicking" + block.getUnlocalizedName()+ "\n" + block.getUnlocalizedName().indexOf('.')+1);
+            if(block.getClass().isAnnotationPresent(IAvionWrenchable.class) || Item.getItemFromBlock(block).getUnlocalizedName().substring(block.getUnlocalizedName().indexOf('.')+1).equalsIgnoreCase("log")){
                 if(player.isSneaking())
-                    block.onBlockDestroyedByPlayer(worldIn, pos, worldIn.getBlockState(pos));
+                    block.breakBlock(worldIn, pos, worldIn.getBlockState(pos));
                 else
                     block.rotateBlock(worldIn, pos, player.getAdjustedHorizontalFacing());
                     return EnumActionResult.SUCCESS;
